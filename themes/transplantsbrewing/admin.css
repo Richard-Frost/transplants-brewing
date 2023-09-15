@@ -1,0 +1,173 @@
+/* ============================
+   GENERAL STYLING
+   ============================ */
+
+/* Background Color for the Main Body */
+#wpbody-content {
+    background-color: white !important; /* Light Green */
+}
+
+/* Admin Bar Color */
+#wpadminbar {
+    background-color: #2D2A2A; 
+}
+
+/* Change the Update Notification Bubble Color */
+#adminmenu .awaiting-mod, #adminmenu .update-plugins {
+    background-color: #FFC107;
+}
+
+/* Hide Collapse Menu Button */
+#collapse-menu {
+    display: none;
+}
+
+/* ============================
+   ADMIN MENU STYLING
+   ============================ */
+
+/* Main Menu Background Color */
+#adminmenu, #adminmenu .wp-submenu, #adminmenuback, #adminmenuwrap {
+    background-color: #2D2A2A; /* Dark gray sidebar color */
+}
+
+/* Hover Color for Menu Items */
+#adminmenu li:hover, #adminmenu li.wp-has-current-submenu {
+    background-color: #656C2E; /* Color on hover */
+}
+
+/* Current Menu Item Background Color */
+#adminmenu .wp-has-current-submenu a.wp-has-current-submenu, 
+#adminmenu .wp-menu-open,
+#adminmenu .wp-menu-open a, 
+#adminmenu .wp-menu-open a:focus, 
+#adminmenu .wp-menu-open a:hover, 
+#adminmenu a.wp-has-current-submenu:focus, 
+#adminmenu a.wp-has-current-submenu:hover, 
+#adminmenu a.wp-menu-open:focus, 
+#adminmenu a.wp-menu-open:hover, 
+#adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+    background-color: #2D2A2A; /* Color for the active/current item */
+    color:#a4b837; /* Text color for the active/current item */
+}
+
+/* Submenu Background Color */
+#adminmenu .wp-submenu {
+    background-color: #2D2A2A; /* Submenu color */
+}
+
+/* Text Color for Active Submenu Items */
+#adminmenu .wp-submenu .wp-submenu-head, #adminmenu .wp-submenu a {
+    color: #FEF7EA; /* Submenu text color */
+}
+
+/* Active Submenu Item Color on Hover */
+#adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover {
+    color: #FEF7EA; /* Submenu hover text color */
+    background-color: #a4b837; /* Submenu hover background color */
+}
+
+/* Logo Styling Above Admin Menu */
+#adminmenu:before {
+    content: "";
+    display: block;
+    width: 90%; 
+    height: 150px;
+    background-image: url('assets/images/transplant1.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    margin: 0 auto; 
+    padding-top: 50px;
+    position: relative;
+    transform: scale(1);
+
+    /* Animation */
+    animation-name: spin;
+    animation-duration: 5s; 
+    animation-delay: 10s; 
+    animation-timing-function: linear; 
+    animation-fill-mode: forwards; 
+}
+
+/* Animation Keyframes for Logo Spin */
+@keyframes spin {
+    0% {
+        transform: scale(1) rotate(0deg);
+    }
+    100% {
+        transform: scale(1) rotate(1440deg); 
+    }
+}
+
+/* ============================
+   EDITOR STYLES
+   ============================ */
+
+/* Transparent Editor Background */
+.editor-styles-wrapper {
+    background-color: transparent !important;
+}
+
+
+/* ... (all your existing styles) ... */
+
+/* ============================
+   GUTENBERG BLOCK STYLES
+   ============================ */
+
+/* Styling for beverage block in sidebar */
+.block-editor-block-types-list__item[aria-label="Beverage Block"] .block-editor-block-types-list__item-icon {
+    border: 2px solid #a4b837; /* Using your active menu item color for consistency */
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Styling for event block in sidebar */
+.block-editor-block-types-list__item[aria-label="Event Block"] .block-editor-block-types-list__item-icon {
+    border: 2px solid #a4b837; /* Using your active menu item color for consistency */
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* Admin Sidebar Lower Items - Border and Hover Styles */
+#adminmenu .wp-has-submenu, #adminmenu > li.menu-top {
+    border-bottom: 1px solid #9E927A;  /* Change color as desired */
+}
+
+#adminmenu li:hover {
+    background-color: #656C2E;  /* Change to your desired hover color */
+}
+
+#adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus {
+    background-color: #ffffff;
+    color: #2c4603;
+}
+
+#adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover, #adminmenu a:hover, #adminmenu li.menu-top>a:focus {
+    color: #a4b837;
+}
+
+.wp-person a:focus .gravatar, a:focus, a:focus .media-icon img, a:focus .plugin-icon {
+    box-shadow: 0 0 0 1px #a4b837, 0 0 2px 1px rgba(90, 212, 79, 0.8);
+    outline: 1px solid transparent;
+}
+
+#adminmenu div.wp-menu-image:before {
+    color: 0 0 0 1px #a4b837,
+}
+#adminmenu li a:focus div.wp-menu-image:before, 
+#adminmenu li.opensub div.wp-menu-image:before, 
+#adminmenu li:hover div.wp-menu-image:before {
+    color: #a4b837;
+}
+
+#adminmenu .wp-submenu {
+    border-top: 1px solid #9E927A !important;  /* Change color as desired */
+    border-bottom: 1px solid #9E927A !important;  /* Change color as desired */
+}

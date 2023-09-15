@@ -1,0 +1,165 @@
+body {  /* Or whatever the parent of .beverage-inventory-container is */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;  /* takes the full viewport height */
+    margin: 0;
+}
+
+.beverage-center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 32px);  /* Adjusting for WP admin bar */
+    padding-top: 32px;  /* Adjusting for WP admin bar */
+}
+
+.beverage-inventory-container {
+    border: 2px solid green;
+    padding: 20px;
+    background-color: white;
+    width: 100%;
+    max-width: 500px;
+}
+
+
+
+
+.beverage-inventory-title {
+    background-color: green;
+    color: white;
+    padding: 10px 15px;
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    border-radius: 4px;
+}
+
+.beverage-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.beverage-item label {
+    flex: 1;
+    margin-right: 20px;
+}
+
+/* Addressing the radio button issue. This is a little hacky since radio buttons are difficult to style directly. 
+   Instead, we will use pseudo-elements for the visual effect. */
+   .beverage-item input[type="radio"] {
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 2px solid tan;
+    border-radius: 50%;
+   
+    outline: none;
+    position: relative;
+    margin: 0;
+    box-sizing: border-box; /* Adding this */
+}
+
+.beverage-item input[type="radio"]:checked {
+    border: 2px solid tan;  /* making it tan even when selected */
+}
+
+.beverage-item input[type="radio"]:checked::before {
+    content: "";
+    display: block;
+    width: 12px;
+    height: 12px;
+    background-color: green;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box; /* Adding this */
+}
+
+.submit-button button, 
+.submit-button input[type="submit"] {
+    background-color: green;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.submit-button button:hover, 
+.submit-button input[type="submit"]:hover {
+    background-color: darkgreen;
+}
+
+.submit-button {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+.beverage-item input[type="radio"] {
+    margin-right: 10px; /* adds spacing between the radio button and the accompanying text */
+}
+
+.beverage-item input[type="radio"] + label {
+    margin-right: 20px; /* adds spacing between the label of the first radio button and the second radio button */
+}
+.beverage-item input[type="radio"]:nth-child(3) { /* target the second radio button */
+    margin-left: 20px; 
+}
+
+/* Change the admin bar color */
+#wpadminbar {
+    background-color: #4CAF50; /* Adjust this green to your liking */
+}
+
+/* Change the main menu background color */
+#adminmenu, #adminmenu .wp-submenu, #adminmenuback, #adminmenuwrap {
+    background-color: #4CAF50;
+}
+
+/* Change the hover color */
+#adminmenu li:hover, #adminmenu li.wp-has-current-submenu {
+    background-color: #388E3C;
+}
+
+/* Change the current menu item background color */
+#adminmenu .wp-has-current-submenu a.wp-has-current-submenu, #adminmenu .wp-menu-open, #adminmenu .wp-menu-open a, #adminmenu .wp-menu-open a:focus, #adminmenu .wp-menu-open a:hover, #adminmenu a.wp-has-current-submenu:focus, #adminmenu a.wp-has-current-submenu:hover, #adminmenu a.wp-menu-open:focus, #adminmenu a.wp-menu-open:hover, #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
+    background-color: #2E7D32;
+}
+
+/* Change the submenu background color */
+#adminmenu .wp-submenu {
+    background-color: #81C784;
+}
+
+/* Change the active submenu item color */
+#adminmenu .wp-submenu .wp-submenu-head, #adminmenu .wp-submenu a {
+    color: #FFF;
+}
+
+/* Change the active submenu item color on hover */
+#adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover {
+    color: #FFF;
+    background-color: #2E7D32;
+}
+
+/* Change the update bubble color */
+#adminmenu .awaiting-mod, #adminmenu .update-plugins {
+    background-color: #FFC107;
+}
+
+/* Dashboard styling */
+#wpbody-content {
+    background-color: #C8E6C9; /* Light Green */
+}
+
+/* More adjustments can be made depending on what else you want to customize. */
+.editor-styles-wrapper {
+    background-color: transparent !important; /* or any color you want */
+}

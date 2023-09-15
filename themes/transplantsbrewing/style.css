@@ -1,0 +1,579 @@
+/*
+Theme Name: Transplants Brewing
+Author: Richard Frost
+Author URI: https://richardfrost.dev
+Description: Transplants Brewing Website
+Tags: 
+Version: 1.0
+Requires at least: 5.9
+Tested up to: 6.2.2
+Requires PHP: 8.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: transplants
+*/
+
+/* === GLOBAL STYLES === */
+body {
+    background-color: black;
+    color: white;
+}
+
+/* === CAROUSEL STYLES === */
+.fixed-carousel {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.carousel .carousel-inner .carousel-item img {
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.fixed-carousel .black-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.logo-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    padding: 2%;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.carousel-logo {
+    display: block;
+    margin: auto;
+    width: 70vw;
+    height: auto;
+    z-index: 4;
+}
+
+.carousel-fade .carousel-item {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+    transition: opacity 1s;
+}
+
+.carousel-fade .carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+    position: relative;
+}
+
+/* === NAVBAR STYLES === */
+.custom-navbar {
+    background-color: rgba(33, 78, 6, 0.6);
+    width: 100%;
+    position: fixed;   
+    bottom: -60px;        
+    left: 0;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+}
+
+.sticky-navbar {
+    top: 0;
+    bottom: auto; 
+    transform: none;
+}
+
+.navbar-content {
+    width: 100%;
+    padding: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 40px;
+}
+
+.navbar-brand {
+    color: white;
+    text-decoration: none;
+    font-size: 24px;
+    margin: 0;
+}
+
+.navbar-logo {
+    width: auto;
+    height: 65px;
+    align-self: flex-start;
+}
+
+.navbar-nav .nav-link {
+    font-family: 'Roboto', sans-serif;
+}
+
+body.admin-bar .navbar {
+    top: 32px !important;
+}
+
+@media screen and (max-width: 782px) {
+    body.admin-bar .navbar {
+        top: 46px !important;
+    }
+}
+
+/* === CONTENT STYLES === */
+.content-scrolling-over {
+    position: relative;
+    z-index: 1;
+}
+
+.site-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+
+
+
+
+.beverage-card {
+    background-color: white;
+    color: black;
+    margin: 0 0 20px 0;
+    padding: 15px;
+    border-radius: 5px;
+}
+
+
+
+
+.beverage-name {
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-top: 0;
+}
+
+.beverage-description {
+    font-size: 1rem;
+    margin: 0.5rem 0;
+}
+
+.beverage-type {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: #777;
+}
+
+.beverage-availability {
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.beverage-abv {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-top: 0.5rem;
+}
+
+/* === FOOTER STYLES === */
+.site-footer {
+    background-color: rgba(33, 78, 6, 0.6);
+    padding: 2% 0;
+    color: white;
+    text-align: center;
+}
+
+.footer-logo {
+    width: 70%;
+    margin: 0 auto 1rem auto;
+}
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.footer-content a {
+    color: white;
+    margin: 0 0.5rem;
+    text-decoration: none;
+}
+
+.footer-content a:hover {
+    text-decoration: underline;
+}
+
+.beverages-container {
+    position: relative;
+}
+
+.beverages-container::before {
+    content: "";
+    display: block;
+    height: 60px;
+}
+
+.beverages-section {
+    background: linear-gradient(to right, #2c4603, black,#2c4603);
+    padding: 50px 0;
+    box-shadow: 0 2px 4px rgba(247, 246, 246, 0.5);
+    margin-top: 100px;
+}
+
+.beverages-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.beverage-container, .events-container, .event-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.beverage-post.card, .event-post.card {
+    flex: 0 0 calc(50% - 20px);
+    box-sizing: border-box;
+}
+
+
+
+.beverage-tag {
+    display: inline-block;
+    background-color: green;
+    color: white;
+    padding: 5px;
+    margin: 0 2px;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+
+
+
+
+
+/* Event post */
+.event-post {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Image container */
+.image-container {
+    width: 100%;
+}
+
+.image-container .card-img-top {
+    width: 100%;
+    display: block;
+}
+
+/* Date and title container */
+.date-and-title-container {
+    display: flex;
+    background-color: rgb(61, 61, 61);
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.date-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    color: white;
+    width: 60px;
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.date-box .month,
+.date-box .day {
+    font-size: 12px;
+}
+
+.date-box .date {
+    font-size: 24px;
+}
+
+.title-and-performers {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-grow: 1;
+    margin-left: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.title-and-performers .card-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.title-and-performers .performers-line {
+    color: #fff; /* Adjust color as necessary */
+    font-size: 12px; /* Adjust font size as necessary */
+}
+
+/* More info button */
+
+.more-info-btn button {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+
+/* Content container */
+.card-content {
+    display: none;
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding-bottom: 60px; 
+}
+
+.active .card-content {
+    display: block;
+    z-index: 2;
+}
+
+/* General styles for events section and containers */
+.events-section {
+    background: linear-gradient(to right, #1e2415, #1e2415);
+    padding: 50px 0;
+    box-shadow: 0 2px 4px rgba(247, 246, 246, 0.5);
+    margin-top: 100px;
+}
+
+.event-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.event-posts-container {
+    flex: 0 0 calc(50% - 20px);
+    box-sizing: border-box;
+    /* max-height: 100vh; - remove this */
+    /* overflow-y: auto; - remove this */
+}
+
+/* Navbar styles */
+.navbar-style {
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin: 0;
+    margin-bottom: 5px;
+    top: 0;
+    left: 0;
+    position: relative; /* Change from absolute to relative */
+    z-index: 2; /* Add z-index to stay on top */
+}
+
+.card-content .card-text {
+    margin-top: 20px !important; /* Adding space above the line */
+    margin-bottom: 20px !important; /* Adding space below the line */
+    text-align: center; /* Retaining existing styles */
+    max-width: 60%; /* Retaining existing styles */
+    margin: 0 auto; /* This might be conflicting with your margin-top and margin-bottom, consider removing it */
+}
+
+.navbar-image-container img {
+    height: 40px;
+    width: auto;
+}
+
+/* Performers styles */
+.performers {
+    margin-top: 5px;
+}
+
+.headline-performer {
+    text-align: center;
+    font-size: 1.5em;
+    margin-bottom: 20px;
+}
+
+.supporting-performers {
+    text-align: center;
+    font-size: 1em;
+}
+
+.card-content .card-text {
+    margin-bottom: 25px;
+}
+.card-text {
+    margin: 0 auto; /* This will center the text */
+    max-width: 60%; /* This sets a maximum width to prevent the text from stretching too far; adjust as necessary */
+    text-align: center; /* This aligns the text to the center within its container */
+}
+
+.iframe-container {
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    overflow: auto;
+    z-index: 1000;
+    padding-top: 60px; /* added padding to ensure content isn't stuck to the top */
+    box-sizing: border-box;
+}
+
+.iframe-close-btn {
+    position: absolute;
+    top: 20px; /* adjusted to work with the added padding in the iframe container */
+    right: 20px;
+    font-size: 24px;
+    background: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    z-index: 1001; /* kept above iframe content */
+    cursor: pointer; /* added to indicate clickability */
+}
+
+.event-iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.buy-tickets-btn {
+    position: absolute;
+    bottom: 20px; /* Position it from the bottom */
+    left: 50%; /* Centering the button horizontally */
+    transform: translateX(-50%); /* Ensuring the button remains centered */
+    padding: 10px 20px;
+    background-color: rgb(22, 66, 20); /* Choose a color that fits your design */
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.age-price {
+    text-align: center;
+    font-size: 0.9em; /* Adjust as necessary */
+    margin-top: 10px; /* Adjust as necessary */
+}
+
+.age-price .card-text {
+    display: inline; /* To display them on a single line */
+    margin: 0 10px; /* Space between age and price */
+}
+
+
+
+.main-info-content {
+    position: relative; /* Establishing a positioning context for children */
+    padding-bottom: 70px; /* Padding bottom to create space for the button */
+    height: 100%; /* Making it occupy the full height of its parent */
+    box-sizing: border-box; /* Including padding and border in element's total width and height */
+    background-color:rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+.location-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+}
+
+.location-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    gap: 20px;
+}
+
+.location-map {
+    flex: 1;
+    min-width: 300px;
+}
+
+.location-map iframe {
+    width: 100%;
+    height: 100%;
+}
+
+.location-address,
+.location-hours {
+    flex: 0.5;
+    min-width: 150px;
+}
+
+@media (max-width: 768px) {
+    .location-container {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+
+
+/* === MEDIA QUERIES FOR RESPONSIVENESS === */
+@media (max-width: 992px) {
+    .beverage-post.card, .event-post.card {
+        flex: 0 0 calc(100% - 20px);  /* Take up the full width minus the gap */
+    }
+}

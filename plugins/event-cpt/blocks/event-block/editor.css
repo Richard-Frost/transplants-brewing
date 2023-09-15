@@ -1,0 +1,15 @@
+/**
+ * The following styles get applied inside the editor only.
+ *
+ * Replace them with your own styles or remove the file completely.
+ */
+
+ .transplants-events-header {
+    background-color: green;
+    color: white;
+    text-align: left; 
+    padding: 20px; 
+    margin: 0; /* Ensuring there's no margin so it's right at the top */
+    width: 100%; 
+    box-sizing: border-box; /* To ensure that padding doesn't increase its total width */
+}

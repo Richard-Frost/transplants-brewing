@@ -1,0 +1,60 @@
+/* This will reset the overall editor styles */
+.wp-block-editor-page {
+    background-color: black !important;
+}
+
+/* The main container for the block */
+.wp-block-beverage-cpt-beverage-block {
+    border: 1px dotted black;
+    padding: 0; /* Remove padding to ensure inner content sticks to the edges */
+    margin: 0 auto; /* Centering it horizontally if it has a set max-width */
+    width: 100%; /* Ensuring it takes up the full width */
+}
+
+/* Outer container styles. There was no mention of this in your JS, so I assume this might be from a different part of your project */
+.beverage-outer-wrapper {
+    border: 2px solid black; 
+    padding: 20px; /* Adjust as needed, but this gives space around inner content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%; /* Ensure it takes up the full width */
+    max-width: 1200px; /* If you need a max-width, keep this, otherwise you can remove it */
+    margin: 0 auto; /* This will center the content if there's a max-width set */
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Styles for the H1 header */
+.transplants-beverages-header {
+    background-color: green;
+    color: white;
+    text-align: left; 
+    padding: 20px; 
+    margin: 0; /* Ensuring there's no margin so it's right at the top */
+    width: 100%; 
+    box-sizing: border-box; /* To ensure that padding doesn't increase its total width */
+}
+
+/* Container for the H1 header */
+.transplants-beverages-container {
+    display: flex;
+    width: 100%; 
+    justify-content: flex-start; 
+    padding: 0; 
+    margin: 0; /* Removing margin to ensure it stays at the top */
+}
+
+.beverage-form-container {
+    padding: 20px; /* Increase padding around the form for a spacious look */
+    margin-top: 20px; /* Added margin to the top for spacing */
+    border-radius: 5px;
+    background-color: #fff; /* Adding a background color to the form */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for a slight lift effect */
+}
+
+.editor-styles-wrapper {
+    background-color: transparent !important;
+}
+.content-container {
+    padding: 20px 20px 20px 20px;
+}
