@@ -12,12 +12,10 @@
     background-color: #2D2A2A; 
 }
 
-/* Change the Update Notification Bubble Color */
 #adminmenu .awaiting-mod, #adminmenu .update-plugins {
     background-color: #FFC107;
 }
 
-/* Hide Collapse Menu Button */
 #collapse-menu {
     display: none;
 }
@@ -28,12 +26,12 @@
 
 /* Main Menu Background Color */
 #adminmenu, #adminmenu .wp-submenu, #adminmenuback, #adminmenuwrap {
-    background-color: #2D2A2A; /* Dark gray sidebar color */
+    background-color: #2D2A2A;
 }
 
 /* Hover Color for Menu Items */
 #adminmenu li:hover, #adminmenu li.wp-has-current-submenu {
-    background-color: #656C2E; /* Color on hover */
+    background-color: #656C2E;
 }
 
 /* Current Menu Item Background Color */
@@ -47,8 +45,8 @@
 #adminmenu a.wp-menu-open:focus, 
 #adminmenu a.wp-menu-open:hover, 
 #adminmenu li.wp-has-current-submenu a.wp-has-current-submenu {
-    background-color: #2D2A2A; /* Color for the active/current item */
-    color:#a4b837; /* Text color for the active/current item */
+    background-color: #2D2A2A;
+    color:#a4b837;
 }
 
 /* Submenu Background Color */
@@ -58,13 +56,13 @@
 
 /* Text Color for Active Submenu Items */
 #adminmenu .wp-submenu .wp-submenu-head, #adminmenu .wp-submenu a {
-    color: #FEF7EA; /* Submenu text color */
+    color: #ffffff;
 }
 
 /* Active Submenu Item Color on Hover */
 #adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover {
-    color: #FEF7EA; /* Submenu hover text color */
-    background-color: #a4b837; /* Submenu hover background color */
+    color: #FEF7EA;
+    background-color: #a4b837; 
 }
 
 /* Logo Styling Above Admin Menu */
@@ -110,7 +108,7 @@
 }
 
 
-/* ... (all your existing styles) ... */
+
 
 /* ============================
    GUTENBERG BLOCK STYLES
@@ -118,7 +116,7 @@
 
 /* Styling for beverage block in sidebar */
 .block-editor-block-types-list__item[aria-label="Beverage Block"] .block-editor-block-types-list__item-icon {
-    border: 2px solid #a4b837; /* Using your active menu item color for consistency */
+    border: 2px solid #a4b837;
     border-radius: 5px;
     padding: 5px;
     display: flex;
@@ -128,7 +126,7 @@
 
 /* Styling for event block in sidebar */
 .block-editor-block-types-list__item[aria-label="Event Block"] .block-editor-block-types-list__item-icon {
-    border: 2px solid #a4b837; /* Using your active menu item color for consistency */
+    border: 2px solid #a4b837;
     border-radius: 5px;
     padding: 5px;
     display: flex;
@@ -137,20 +135,21 @@
 }
 /* Admin Sidebar Lower Items - Border and Hover Styles */
 #adminmenu .wp-has-submenu, #adminmenu > li.menu-top {
-    border-bottom: 1px solid #9E927A;  /* Change color as desired */
+    border-bottom: 1px solid #9E927A;
 }
 
 #adminmenu li:hover {
-    background-color: #656C2E;  /* Change to your desired hover color */
+    color: rgb(4, 136, 10);
+    background-color: #656C2E;
 }
 
 #adminmenu li.menu-top:hover, #adminmenu li.opensub>a.menu-top, #adminmenu li>a.menu-top:focus {
-    background-color: #ffffff;
-    color: #2c4603;
+    background-color: #a4b837;
+    color: #ffffff;
 }
 
 #adminmenu .wp-submenu a:focus, #adminmenu .wp-submenu a:hover, #adminmenu a:hover, #adminmenu li.menu-top>a:focus {
-    color: #a4b837;
+    color: #ffffff;
 }
 
 .wp-person a:focus .gravatar, a:focus, a:focus .media-icon img, a:focus .plugin-icon {
@@ -164,10 +163,10 @@
 #adminmenu li a:focus div.wp-menu-image:before, 
 #adminmenu li.opensub div.wp-menu-image:before, 
 #adminmenu li:hover div.wp-menu-image:before {
-    color: #a4b837;
+    color: #fdfdfd;
 }
 
 #adminmenu .wp-submenu {
-    border-top: 1px solid #9E927A !important;  /* Change color as desired */
-    border-bottom: 1px solid #9E927A !important;  /* Change color as desired */
+    border-top: 1px solid #9E927A !important;
+    border-bottom: 1px solid #9E927A !important; 
 }

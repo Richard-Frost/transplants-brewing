@@ -69,7 +69,7 @@ function beverage_block_register() {
     wp_register_script(
         'beverage-block',
         plugins_url('blocks/beverage-block/block.js', __FILE__),
-        array('wp-blocks', 'wp-element', 'wp-editor'),
+        array('wp-blocks', 'wp-element', 'wp-editor', 'wp-components'),
         '1.0.0'
     );
 
@@ -88,7 +88,8 @@ function register_beverage_meta() {
         'beverage_type' => 'string',
         'beverage_alcohol_content' => 'string',
         'beverage_image_url' => 'string',
-        'beverage_availability' => 'boolean'
+        'beverage_availability' => 'boolean',
+        'beverage_position' => 'integer', // Add 'beverage_position' with 'integer' type
     );
 
     foreach ($meta_fields as $meta_key => $type) {
@@ -114,21 +115,23 @@ function beverage_cpt_enqueue_block_styles() {
         [],
         '1.0.0'
     );
+}
+add_action('enqueue_block_assets', 'beverage_cpt_enqueue_block_styles');
 
-    add_action('enqueue_block_assets', 'beverage_cpt_enqueue_block_styles');
-
-
-    // Enqueue front end and editor block styles
+function beverage_cpt_admin_styles($hook) {
+    // Only enqueue styles for the 'On Tap' page in the backend
+    if ('beverage_page_beverage_inventory' != $hook) {
+        return;
+    }
+    
     wp_enqueue_style(
-        'beverage-block-frontend-style',
-        plugins_url('blocks/beverage-block/style.css', __FILE__),
+        'beverage-cpt-admin-style',
+        plugins_url('admin-style.css', __FILE__),
         [],
         '1.0.0'
     );
 }
-add_action('enqueue_block_assets', 'beverage_cpt_enqueue_block_styles');
-
-
+add_action('admin_enqueue_scripts', 'beverage_cpt_admin_styles');
 
 function beverage_inventory_page() {
     add_submenu_page(
@@ -151,10 +154,15 @@ function beverage_inventory_callback() {
     $beverages = new WP_Query($args);
 
     if (isset($_POST['update_inventory'])) {
-        foreach ($beverages->posts as $beverage) {
-            $availability = $_POST['availability_' . $beverage->ID] === "true" ? true : false;
-            update_post_meta($beverage->ID, 'beverage_availability', $availability);
-        }
+        while ($beverages->have_posts()) : $beverages->the_post();
+            $beverage_id = get_the_ID();
+            $availability = isset($_POST['availability_' . $beverage_id]) && $_POST['availability_' . $beverage_id] === "true" ? true : false;
+            update_post_meta($beverage_id, 'beverage_availability', $availability);
+
+            // Update the 'beverage_position' meta field as an integer
+            $position = isset($_POST['position_' . $beverage_id]) ? intval($_POST['position_' . $beverage_id]) : 0;
+            update_post_meta($beverage_id, 'beverage_position', $position);
+        endwhile;
         echo '<div class="notice notice-success is-dismissible"><p>Inventory updated successfully.</p></div>';
     }
     echo '<div class="beverage-center-container">'; 
@@ -163,15 +171,28 @@ function beverage_inventory_callback() {
     echo '<form method="post">';
     
     while ($beverages->have_posts()) : $beverages->the_post();
-        $availability = get_post_meta(get_the_ID(), 'beverage_availability', true);
+        $beverage_id = get_the_ID();
+        $availability = get_post_meta($beverage_id, 'beverage_availability', true);
+        $position = get_post_meta($beverage_id, 'beverage_position', true);
+        $beverage_title = get_post_meta($beverage_id, 'beverage_title', true);
+    
+        // Dropdown select menu for availability
         echo '<div class="beverage-item">';
-        $beverage_title = get_post_meta(get_the_ID(), 'beverage_title', true);
         echo '<label>' . esc_html($beverage_title) . '</label>';
-        echo '<input type="radio" name="availability_' . get_the_ID() . '" value="true" ' . checked($availability, true, false) . '> Available ';
-        echo '<input type="radio" name="availability_' . get_the_ID() . '" value="false" ' . checked($availability, false, false) . '> Not Available';
+        echo '<select name="availability_' . $beverage_id . '">';
+        echo '<option value="true" ' . selected($availability, true, false) . '>Available</option>';
+        echo '<option value="false" ' . selected($availability, false, false) . '>Not Available</option>';
+        echo '</select>';
+
+        // Dropdown select menu for position
+        echo '<select name="position_' . $beverage_id . '">';
+        for ($i = 1; $i <= 25; $i++) {
+            echo '<option value="' . $i . '" ' . selected($position, $i, false) . '>' . $i . '</option>';
+        }
+        echo '</select>';
         echo '</div>';
     endwhile;
-    
+
     echo '<div class="submit-button"><input type="submit" name="update_inventory" class="button button-primary" value="Update Inventory"></div>';
     echo '</form>';
     echo '</div>';
@@ -179,18 +200,213 @@ function beverage_inventory_callback() {
     wp_reset_postdata();
 }
 
-
-function beverage_cpt_admin_styles($hook) {
-    // Only enqueue styles for the 'On Tap' page in the backend
-    if ('beverage_page_beverage_inventory' != $hook) {
-        return;
-    }
-    
-    wp_enqueue_style(
-        'beverage-cpt-admin-style',
-        plugins_url('admin-style.css', __FILE__),
-        [],
-        '1.0.0'
+function beverage_inventory_page_2() {
+    add_submenu_page(
+        'edit.php?post_type=beverage',
+        'On Tap 2',               // Page title
+        'On Tap 2',               // Menu title
+        'manage_options',
+        'beverage_inventory_2',   // Slug
+        'beverage_inventory_callback_2'
     );
 }
-add_action('admin_enqueue_scripts', 'beverage_cpt_admin_styles');
+add_action('admin_menu', 'beverage_inventory_page_2');
+
+function beverage_inventory_callback_2() {
+    // Enqueue the necessary scripts
+    wp_enqueue_script('jquery');
+    wp_enqueue_script('jquery-ui-core');
+    wp_enqueue_script('jquery-ui-draggable');
+    wp_enqueue_script('jquery-ui-droppable');
+
+    // Handle form submission
+    if (isset($_POST['update_taps'])) {
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'beverage_') === 0) {
+                $parts = explode('_', $key);
+                $beverage_id = intval($parts[1]);
+                $property = $parts[2];
+
+                if ($property == 'availability') {
+                    update_post_meta($beverage_id, 'beverage_availability', $value === 'true' ? true : false);
+                } elseif ($property == 'position') {
+                    update_post_meta($beverage_id, 'beverage_position', intval($value));
+                }
+            }
+        }
+    }
+
+    // Fetch beverages
+    $args = array('post_type' => 'beverage', 'posts_per_page' => -1);
+    $beverages = new WP_Query($args);
+
+    // Prepare beverages for display
+    $available_beverages = array_fill(1, 25, null);
+    $unavailable_beverages = [];
+
+    while ($beverages->have_posts()) : $beverages->the_post();
+        $beverage_id = get_the_ID();
+        $availability = get_post_meta($beverage_id, 'beverage_availability', true);
+        $position = get_post_meta($beverage_id, 'beverage_position', true);
+        $beverage_image_url = get_post_meta($beverage_id, 'beverage_image_url', true);
+
+        if ($availability) {
+            $available_beverages[intval($position)] = ['id' => $beverage_id, 'image' => $beverage_image_url];
+        } else {
+            $unavailable_beverages[] = ['id' => $beverage_id, 'image' => $beverage_image_url];
+        }
+    endwhile;
+
+    // Display the form with draggable beverages
+    ?>
+    <style>
+    .on-tap-2-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 80%;  /* This will make the whole container 80% of its parent container width. Adjust this value according to your needs. */
+        margin: 0 auto;  /* Centering it horizontally */
+        overflow-x: hidden;  /* Ensure no horizontal scrolling occurs on the main container */
+    }
+
+    .black-boxes-container {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* Now it will have 10 columns */
+    gap: 10px;
+}
+
+
+    .numbered-box {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100px;  /* Doubled width */
+        height: 160px; /* Doubled height */
+        background: black;
+        color: white;
+        position: relative;
+    }
+
+    .beverage-image {
+        max-height: 150px;  /* For the available section */
+        width: auto;
+        cursor: pointer;
+        position: absolute;
+    }
+
+    .unavailable-section .beverage-image {
+    position: relative; 
+    max-height: 80px;  /* Adjusted height of the image */
+    margin: 10px;      /* Added margin around the image */
+}
+
+
+    .unavailable-section {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 20px;
+    border: 2px dashed gray;
+    padding: 10px;
+    justify-content: space-between;
+    width: 100%;  /* Takes up the full width of the parent container */
+    overflow-x: auto;  /* Enable horizontal scrolling if content exceeds */
+}
+
+.beverage-images-container {
+    display: flex;
+    flex-wrap: nowrap; /* Prevents the items from wrapping and ensures a horizontal layout */
+    overflow-x: auto;  /* Allow for horizontal scrolling */
+    width: 100%;       /* Full width of parent */
+}
+
+
+    .unavailable-section .beverage-images-container {
+        overflow-x: auto;       /* Enable horizontal scrolling */
+        white-space: nowrap;    /* Keep images on a single line */
+        width: 100%;            /* Full width of the container */
+    }
+
+    .submit-button {
+        margin-top: 20px;
+    }
+</style>
+
+
+    <div class="on-tap-2-container">
+        <h2>On Tap 2</h2>
+        <form method="post">
+            <div class="black-boxes-container">
+                <?php
+                for ($i = 1; $i <= 30; $i++) {
+                    echo '<div class="numbered-box" data-box="' . $i . '">' . $i;
+                    if ($available_beverages[$i]) {
+                        $beverage = $available_beverages[$i];
+                        echo '<input type="hidden" name="beverage_' . $beverage['id'] . '_availability" value="true">';
+                        echo '<input type="hidden" name="beverage_' . $beverage['id'] . '_position" value="' . $i . '">';
+                        echo '<img src="' . esc_url($beverage['image']) . '" class="beverage-image" data-beverage-id="' . $beverage['id'] . '">';
+                    }
+                    echo '</div>';
+                }
+                ?>
+            </div>
+            <div class="unavailable-section">
+                <h3>Unavailable Beverages</h3>
+                <div class="beverage-images-container">
+                    <?php
+                    foreach ($unavailable_beverages as $beverage) {
+                        echo '<div class="beverage-image-container">';
+                        echo '<input type="hidden" name="beverage_' . $beverage['id'] . '_availability" value="false">';
+                        echo '<input type="hidden" name="beverage_' . $beverage['id'] . '_position" value="0">';
+                        echo '<img src="' . esc_url($beverage['image']) . '" class="beverage-image" data-beverage-id="' . $beverage['id'] . '">';
+                        echo '</div>';
+                    }
+                    ?>
+                </div>
+            </div>
+            <div class="submit-button">
+                <input type="submit" name="update_taps" class="button button-primary" value="Update Taps">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        jQuery(function($) {
+            $('.beverage-image').draggable({
+                revert: "invalid",
+                containment: ".on-tap-2-container",
+                helper: "clone",
+                cursor: "move"
+            });
+
+            $('.numbered-box, .unavailable-section').droppable({
+                accept: ".beverage-image",
+                hoverClass: "ui-state-hover",
+                drop: function(event, ui) {
+                    var isUnavailableSection = $(this).hasClass('unavailable-section');
+
+                    if(isUnavailableSection) {
+                        var droppedBeverage = $(ui.draggable);
+                        droppedBeverage.appendTo($(this).find('.beverage-images-container'));
+                        $('input[name="beverage_' + droppedBeverage.data('beverage-id') + '_availability"]').val('false');
+                        $('input[name="beverage_' + droppedBeverage.data('beverage-id') + '_position"]').val('0');
+                    } else {
+                        var droppedBeverage = $(this).find('img.beverage-image');
+                        if(droppedBeverage.length) {
+                            droppedBeverage.appendTo(ui.draggable.parent());
+                            $('input[name="beverage_' + droppedBeverage.data('beverage-id') + '_availability"]').val('false');
+                            $('input[name="beverage_' + droppedBeverage.data('beverage-id') + '_position"]').val('0');
+                        }
+
+                        $(this).append($(ui.draggable));
+                        $('input[name="beverage_' + $(ui.draggable).data('beverage-id') + '_availability"]').val('true');
+                        $('input[name="beverage_' + $(ui.draggable).data('beverage-id') + '_position"]').val($(this).data('box'));
+                    }
+                }
+            });
+        });
+    </script>
+    <?php
+}
+
+// Ensure that you add the above function to the correct action or shortcode to display it.

@@ -15,79 +15,28 @@ Text Domain: transplants
 
 /* === GLOBAL STYLES === */
 body {
-    background-color: black;
-    color: white;
+    background-color: rgb(0, 0, 0);
+    color: rgb(255, 255, 255);
+    margin: 0;
+    padding: 0;
+}
+html {
+    margin: 5;
+    padding: 5;
 }
 
-/* === CAROUSEL STYLES === */
-.fixed-carousel {
-    position: relative;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -1;
+.no-scroll {
     overflow: hidden;
-}
-
-.carousel .carousel-inner .carousel-item img {
-    height: 100%;
-    width: auto;
-    object-fit: cover;
-}
-
-.fixed-carousel .black-overlay {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    pointer-events: none;
-    z-index: 1;
-}
-
-.logo-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90vw;
-    padding: 2%;
-    box-sizing: border-box;
-    z-index: 3;
-}
-
-.carousel-logo {
-    display: block;
-    margin: auto;
-    width: 70vw;
-    height: auto;
-    z-index: 4;
-}
-
-.carousel-fade .carousel-item {
-    opacity: 0;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    display: block;
-    transition: opacity 1s;
-}
-
-.carousel-fade .carousel-item.active {
-    opacity: 1;
-    z-index: 1;
-    position: relative;
+    height: 100%; /* Prevents scrolling */
 }
 
 /* === NAVBAR STYLES === */
 .custom-navbar {
-    background-color: rgba(33, 78, 6, 0.6);
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.80)), 
+                url('/wp-content/themes/transplantsbrewing/assets/images/Texturewebp.webp') no-repeat center center;
     width: 100%;
-    position: fixed;   
-    bottom: -60px;        
+    position: fixed;
+    top: 100vh;
     left: 0;
     z-index: 1000;
     transition: transform 0.3s ease-in-out;
@@ -95,7 +44,7 @@ body {
 
 .sticky-navbar {
     top: 0;
-    bottom: auto; 
+    bottom: auto;
     transform: none;
 }
 
@@ -129,9 +78,211 @@ body.admin-bar .navbar {
     top: 32px !important;
 }
 
-@media screen and (max-width: 782px) {
+.navbar-toggler-icon::before,
+.navbar-toggler-icon::after {
+    background-color: white !important; /* Change the background color of the lines */
+}
+/* Mobile and Tablet View */
+@media screen and (max-width: 991px) {
+    .custom-navbar {
+        background: linear-gradient(to bottom,rgba(0, 0, 0, 0.85), rgba(0, 0, 0, 0.80)), 
+                    url('/wp-content/themes/transplantsbrewing/assets/images/Texturewebp.webp') no-repeat center center;
+        width: 100%;
+        position: fixed;
+        top: 100vh; 
+        left: 0;
+        z-index: 1000;
+        transition: top 0.3s ease-in-out;
+    }
+
+    .navbar-brand {
+        margin-left: 0; 
+    }
+
+    .navbar-toggler {
+        border: 1px solid rgba(255, 255, 255, 0.7); 
+        padding: .25rem .75rem; 
+        background-color: transparent; 
+        margin-right: 0; 
+    }
+
+    .navbar-collapse {
+        position: absolute;
+        top: 100%; 
+        left: 0;
+        right: 0;
+        background-image: url('/wp-content/themes/transplantsbrewing/assets/images/transplant1.png'); 
+        background-color: rgba(0, 0, 0, 0.75); 
+        background-blend-mode: overlay; 
+        background-size: cover; 
+        background-position: center; 
+        z-index: 1; 
+    }
+
+    .navbar-nav {
+        display: block; 
+        margin: 0; 
+        padding: 0; 
+    }
+
+    .navbar-nav .nav-item {
+        display: block; 
+    }
+
+    .navbar-nav .nav-link {
+        padding: .5rem 0; 
+        margin: 0; 
+        text-align: left; 
+    }
+
+    .navbar-logo {
+        height: 50px; 
+        margin-right: 0; 
+    }
+
     body.admin-bar .navbar {
         top: 46px !important;
+    }
+}
+
+
+/* === CAROUSEL STYLES === */
+.fixed-carousel {
+    position: relative;
+    top: 0 !important;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.fixed-carousel .swiper-wrapper .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.fixed-carousel .swiper-wrapper .swiper-slide img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+}
+.fixed-carousel .black-overlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.logo-container {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80vw;
+    padding: 2%;
+    box-sizing: border-box;
+    z-index: 3;
+}
+
+.carousel-logo {
+    display: block;
+    margin: auto;
+    width: 60vw;
+    height: auto;
+    z-index: 4;
+}
+
+.carousel-fade .carousel-item {
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    display: block;
+    transition: opacity 1s;
+}
+
+.carousel-fade .carousel-item.active {
+    opacity: 1;
+    z-index: 1;
+    position: relative;
+}
+
+.fixed-carousel::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 2;
+}
+
+
+/* === RESPONSIVE STYLES FOR MOBILE === */
+@media screen and (max-width: 768px) {
+    .fixed-carousel {
+        height: 100vh;
+    }
+    .fixed-carousel::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, 0.8);
+        z-index: 1;
+    }
+    .carousel .carousel-inner .carousel-item img {
+        width: 100%;
+        height: auto;
+        min-height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .fixed-carousel .swiper-container {
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    .fixed-carousel .swiper-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .fixed-carousel .swiper-slide img {
+        width: auto;
+        min-height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* === RESPONSIVE STYLES FOR MOBILE === */
+@media screen and (max-width: 768px) { 
+    .logo-container {
+        width: 100%;
+        margin-top: -25%;
+    }
+    
+    .logo-container .carousel-logo {
+        width: 110%;
+        height: auto;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        }
     }
 }
 
@@ -148,47 +299,1182 @@ body.admin-bar .navbar {
 }
 
 
+/* BEVERAGE STYLES */
 
+.beverages-container {
+    position: relative;
+    box-sizing: border-box;
+}
 
+.beverages-container::before {
+    content: "";
+    display: block;
+    height: 60px;
+}
 
-.beverage-card {
+.beverages-container .beverages-section {
+    position: relative;
+    background-image: url('/wp-content/themes/transplantsbrewing/assets/wood2.png');
+    padding: 10px 0;
+    margin-top: 20px;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.beverages-container .beverages-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('/wp-content/themes/transplantsbrewing/assets/wood2.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    transform: rotate(90deg);
+    transform-origin: top left;
+}
+
+.beverages-container .beverages-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* Beverage Display Styles */
+.beverages-container .beverage-display-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80% !important;
+    margin: 0 auto;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.beverages-container .beverage-frame {
+    flex-basis: calc(16.6667% - 24px);
+    margin: 10px 12px;
+    cursor: pointer;
+    position: relative;
+    border: 10px solid #000;
+    box-sizing: border-box;
+    box-shadow: 
+        0 0 0 1px rgb(7, 7, 7),
+        0 0 0 4px #000,
+        0 6px 6px 4px rgba(0, 0, 0, 0.2),
+        0 0 15px rgba(0, 0, 0, 0.4) inset;
+}
+
+.beverages-container .beverage-frame:before {
+    content: "";
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border: 1px solid #666;
+    border-radius: 4px;
+}
+
+.beverages-container .beverage-image {
+    width: 100%;
+    height: 100%;
+    display: block;
+    transition: transform 0.3s ease-in-out;
+    box-sizing: border-box;
+    object-fit: cover;
+}
+
+.beverages-container .beverage-frame:hover .beverage-image {
+    transform: scale(1.05);
+}
+
+/* Modal Styles */
+.beverages-container .beverage-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 200;
+    box-sizing: border-box;
+}
+
+.beverages-container .beverage-detail-card {
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
     background-color: white;
-    color: black;
-    margin: 0 0 20px 0;
+    box-sizing: border-box;
+}
+
+.beverages-container .beverage-modal-image {
+    width: 100%;
+    height: 80vh;
+    object-fit: contain;
+    margin: 5vh 0;
+    box-sizing: border-box;
+}
+
+.beverages-container .beverage-modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    z-index: 201;
+}
+
+.beverages-container .beverage-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Modal Card Styles */
+.beverages-container .beverage-modal .beverage-card {
+    height: 85vh; 
+    width: auto; 
+    margin: 5vh auto 0 auto; 
+    display: flex;
+    flex-direction: column;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    border: none; 
+    border-radius: 0; 
+}
+.beverages-container .beverage-modal .beverage-card .card-img-top {
+    height: 68vh; 
+    width: 100%; 
+    object-fit: contain; 
+    margin: 0; 
+    padding: 0; 
+}
+
+.beverages-container .beverage-modal .beverage-card .card-body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 17vh; 
+    padding: 0;
+    background-color: #fff;
+    width: 100%; 
+    text-align: center;
+    overflow-y: hidden; 
+    margin: 0; 
+}
+
+.card {
+    border: none; 
+}
+
+.card-img, .card-img-top {
+    border-top-left-radius: 0;;
+    border-top-right-radius: 0;
+}
+
+
+.beverages-container .swiper-container {
+    height: 90vh !important; 
+    margin-top: 5vh;
+}
+
+.beverages-container .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+
+.beverages-container .swiper-button-next, 
+.beverages-container .swiper-button-prev {
+    color: white;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.beverages-container .beverage-modal .beverage-card .card-title,
+.beverages-container .beverage-modal .beverage-card .card-text {
+    color: #333;
+}
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+    .beverages-container .beverage-display-container {
+        width: 100% !important;
+    }
+
+    .beverages-container .beverage-frame {
+        flex-basis: calc(20% - 10px) !important;
+        margin: 5px;
+    }
+    .beverages-container .beverage-frame {
+        border: 4px solid #000;
+        box-shadow: 
+            0 0 0 1px rgb(7, 7, 7),
+            0 0 0 4px #000,
+            0 6px 6px 4px rgba(0, 0, 0, 0.2),
+            0 0 15px rgba(0, 0, 0, 0.4) inset;
+    }
+}
+
+/* Media Query for Tablet (iPad) Screens */
+@media (max-width: 1024px) {
+    .beverages-container .beverage-frame {
+        flex-basis: calc(33.33% - 16px);
+    }
+
+    .beverages-container .beverage-modal .beverage-card {
+        margin: 0 auto;
+        width: 60%; /* Adjusted for larger tablet screen */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-img-top {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 10px;
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-body {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-title,
+    .beverages-container .beverage-modal .beverage-card .card-text {
+        display: block;
+        text-align: center;
+        width: 100%;
+    }
+
+    .beverages-container .beverage-modal-close {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        padding: 8px;
+        font-size: 30px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-sizing: border-box;
+        z-index: 201;
+    }
+}
+
+
+/* Media Query for Mobile Screens */
+@media (max-width: 768px) {
+    .beverages-container .beverage-modal .beverage-card {
+        margin: 0 auto;
+        width: 80%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-img-top {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        margin-bottom: 10px; 
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-body {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 1rem;
+    }
+
+    .beverages-container .beverage-modal .beverage-card .card-title,
+    .beverages-container .beverage-modal .beverage-card .card-text {
+        display: block;
+        text-align: center;
+        width: 100%; 
+    }
+
+    .beverages-container .beverage-modal-close {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        background-color: rgba(0, 0, 0, 0.6);
+        color: white;
+        border: none;
+        padding: 8px; 
+        font-size: 20px; 
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        box-sizing: border-box;
+        z-index: 201;
+    }
+}
+
+
+ /* Location/Map Section*/
+.location-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.9)), 
+                url('/wp-content/themes/transplantsbrewing/assets/images/transplants_brewery_building.jpeg') no-repeat center center;
+    background-size: cover;
+    color: white;
+}
+
+.location-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+}
+
+.location-image, .location-map {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+}
+
+.location-image {
+    margin-right: 10px;
+}
+
+.location-map-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    width: 100%;
+}
+
+.location-map {
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center; 
+}
+
+.location-map iframe, .location-image img {
+    width: 100%;  
+    height: 100%; 
+    border: 0;    
+}
+
+.location-image img {
+    object-fit: contain; 
+}
+
+.location-details {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 800px;
+}
+
+.location-address, .location-hours {
+    flex: 1; 
+    max-width: 300px;
+    text-align: center;
     padding: 15px;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1),
+                0px 1px 1px rgba(0, 0, 0, 0.1) inset;
 }
 
+@media (max-width: 768px) {
+    .main-content-container {
+        max-width: 100%;
+        margin: 8px auto; 
+    }
 
+    .location-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
+    .location-map-container {
+        flex-direction: column; 
+        align-items: flex-start; 
+    }
 
-.beverage-name {
-    font-weight: bold;
-    font-size: 1.4rem;
+    .location-image, .location-map {
+        width: 100%;  
+        margin-right: 0; 
+    }
+
+    .location-image {
+        margin-bottom: 20px; 
+    }
+}
+
+.iframe-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    z-index: 200;
+    background-color: rgba(0, 0, 0, 0.6); 
+}
+
+iframe#shopIframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none;
+    z-index: 200;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.close-iframe-btn {
+    position: absolute;
+    top: 5%;         
+    left: 5%;       
+    background-color: transparent;   
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    z-index: 200;
+    text-align: center;
+    line-height: 1; 
+    color: #fff;
+}
+
+.close-iframe-btn .chevron {
+    font-size: 40px;   
+    display: block;    
+    line-height: 1;    
+}
+
+.close-iframe-btn .back-text {
+    font-size: 12px;   
+    line-height: 1;    
+    display: block;    
+}
+
+.close-iframe-btn:hover {
+    color: #eee;       
+}
+
+#shop-section {
+    position: relative;
+    background-image: url('/wp-content/themes/transplantsbrewing/assets/beer.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    height: 400px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#shop-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+#openShopIframe {
+    position: absolute;
+    top: 50%;                 
+    left: 50%;                
+    transform: translate(-50%, -50%);  
+    background-color:rgba(0, 0, 0, 0.8);
+    color: white;             
+    padding: 10px 80px;      
+    border: none;
+    font-size: 30px;
+    cursor: pointer;
+    border-radius: 20px;      
+    z-index: 1;
+    min-width: 300px;         
+    text-align: center;
+}
+
+#openShopIframe:hover {
+    transform: translate(-50%, -49%);
+}
+
+#openShopIframe:active {
+    box-shadow: 
+      0 0px 6px rgba(0,0,0,0.3),   
+      inset 0 -2px 5px rgba(0,0,0,0.5),
+      inset 0 2px 3px rgba(255,255,255,0.3);
+    transform: translate(-50%, -49.5%);
+}
+@media screen and (max-width: 768px) {
+    #openShopIframe {
+        padding: 10px 40px; /* Adjust the padding for smaller screens */
+        font-size: 24px;   /* Adjust the font size for smaller screens */
+        min-width: 200px;  /* Adjust the minimum width for smaller screens */
+    }
+}
+
+/* Featured Events Section */
+.outside-container {
+    position: absolute;
+    bottom: -100%;
+    left: 0;
+    right: 0;
+    z-index: 0;
+    overflow-x: hidden;
+    overflow-y: auto;
+    text-align: center;
+    background-color: transparent;
+}
+
+.outside-container h1 {
+    font-size: 20px;
+}
+
+.content-container {
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    position: relative;
+    margin: 0 auto;
+    background-color: rgba(3, 2, 2, .8);
+    box-sizing: border-box;
+    padding: 0;
+}
+
+.content-container h4 {
+    color: white;
+    font-size: 16px;
+    background-color: rgba(3, 2, 2, .8);
+    padding: 10px 10px 0 10px;
+    width: auto;
+    box-sizing: border-box;
+    text-align: center;
+    display: block;
+    position: relative;
+    margin-bottom: 0 !important;
+}
+
+.featured-event-notification {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 0;
+    overflow-x: auto;
+}
+
+.featured-event-notification {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: auto;
+    margin: 0 auto;
+    box-sizing: border-box;
+    padding: 4px;
+    overflow-x: auto;
+}
+
+.featured-event-notification .horizontal-event-card {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    margin: 5px;
+    width: 200px;
+    flex: 0 0 auto;
+    display: inline-block;
+}
+
+.featured-event-notification .horizontal-event-card .image-container img {
+    width: 100%;
+    height: auto;
+}
+
+.featured-event-notification .horizontal-event-card .date-box,
+.featured-event-notification .horizontal-event-card .more-info {
+    font-size: 14px;
+}
+
+#featured-events-section > p {
+    color: white;
     margin-top: 0;
+    margin-bottom: 5px;
+    padding-top: 0;
+    padding-bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: rgba(3, 2, 2, .8);
+    font-size: 14px;
+    box-sizing: border-box;
 }
 
-.beverage-description {
-    font-size: 1rem;
-    margin: 0.5rem 0;
+.down-arrow-container {
+    position: relative; 
+    margin-top: auto; 
+    align-self: center; 
+    cursor: pointer;
+    font-size: 24px; 
 }
 
-.beverage-type {
-    text-transform: uppercase;
-    font-size: 0.8rem;
-    color: #777;
+@media (max-width: 767px) {
+    .featured-event-notification {
+        width: 100%;
+    }
+
+    .featured-event-notification .horizontal-event-card:nth-child(n+3) {
+        display: none;
+    }
+
+    .featured-event-notification .horizontal-event-card {
+        width: calc(47% - 10px);
+    }
 }
 
-.beverage-availability {
+
+/* EVENTS */
+.events-section {
+    background:  radial-gradient(circle, rgba(0, 0, 0, 0.85) 50%, rgba(0, 0, 0, 0.87), rgba(0, 0, 0, 0.90),rgba(0, 0, 0, 0.92), rgba(0, 0, 0, 0.95) 100%), 
+                url('/wp-content/themes/transplantsbrewing/assets/images/Texturewebp.webp');
+    background-size: cover;
+    padding: 10px 0;
+    box-shadow: 0 -2px 1px rgba(43, 43, 43, 0.8);
+    margin-top: 100px;
+    width: 100%;
+}
+.event-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    width: 100%; 
+    max-width: 1280px; 
+    margin: 0 auto; 
+    box-sizing: border-box; 
+}
+
+/* Styles for the dropdown wrapper */
+.dropdown-wrapper {
+    width: 100%; 
+    margin: 0 auto; 
+    text-align: center; 
+    margin-bottom: 20px;
+}
+
+/* Styles for the dropdown select */
+#event-type-select {
+    padding: 5px 10px; 
+    display: inline-block;
+}
+
+/* Styles for the dropdown select */
+#event-type-select {
+    padding: 5px 10px;
+}
+
+
+/* Styles for each event post container */
+.event-posts-container {
+    flex: 0 0 calc(25% - 15px);
+    box-sizing: border-box;
+}
+
+/* Container holding the date and time */
+.date-and-title-container {
+    display: flex;
+    background-color: black;
+    width: 100%;
+    height: 60px;
+    padding-left: 70px;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Blurred background image behind event info */
+.event-bg-image {
+    position: absolute;
+    z-index: 0;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 100%;
+    transform: scaleX(-1) scale(1.5);
+    transform-origin: center center;
+    filter: blur(10px); 
+}
+
+.modal-bg-image {
+    position: absolute;
+    z-index: -2;
+    top: -50px;
+    left: 0;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    min-height: 100%;
+    transform: scaleX(-1) scale(1.5);
+    transform-origin: center center; 
+    filter: blur(10px); 
+}
+
+.bg-card-body {
+    position: relative; 
+}
+
+.bg-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: -1; 
+}
+
+.date-and-title-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6); 
+    z-index: 1; 
+}
+
+.date-box, .more-info {
+    position: relative;
+    z-index: 2;
+}
+
+.date-box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color:rgba(0, 0, 0, 0.5);
+    width: 70px;
+    height: 60px;
+    margin-left: -70px;
+    z-index: 3;
+}
+
+.date-box .day,
+.date-box .date-full,
+.date-box .time-full {
+    margin: 1px 0; 
+    line-height: 1.2;
+}
+
+.date-box .day {
+    font-size: 11px;
     font-weight: bold;
-    font-size: 0.8rem;
+    color: white;
 }
 
-.beverage-abv {
+.date-box .date-full {
+    font-size: 16px; 
     font-weight: bold;
-    font-size: 1.2rem;
-    margin-top: 0.5rem;
+    color: #e74c3c; 
 }
+
+.date-box .time-full {
+    font-size: 11px; 
+    color: white;
+}
+
+.more-info {
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    flex-grow: 1;
+    z-index: 2;
+    position: relative;
+    font-size: 16px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-right: 2px solid rgba(0, 0, 0, 0.5);
+}
+
+.more-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: transparent;
+    border-top: 2px solid rgba(0, 0, 0, 0.5);
+    border-left: 2px solid rgba(0, 0, 0, 0.5);
+    border-bottom: 2px solid rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    z-index: -1;
+}
+
+/* Styles for the card body within an event post */
+.event-post .card-body {
+    position: relative;
+    z-index: 1;
+    overflow: hidden !important;
+}
+.event-post {
+    position: relative;
+    overflow: hidden;
+}
+/* Background image for each event post */
+.event-post .card-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    display: block;
+    transform: scale(1.001);
+}
+
+/* Overlay for the event post */
+.event-post .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Style and layout for age and price information */
+.age-price {
+    text-align: center;
+    font-size: 0.9em;
+    margin-top: 10px;
+}
+
+.age-price .card-text {
+    display: inline;
+    margin: 0 10px;
+}
+
+/* Modal Styles */
+.event-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    box-sizing: border-box;
+}
+
+.event-detail-card {
+    max-width: 800px;
+    margin: auto;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+}
+
+.event-modal-close {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+    z-index: 2001;
+}
+
+.event-modal-close:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Swiper Container Styles */
+.event-modal .swiper-container {
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+}
+
+/* Swiper Slide Styles */
+.event-modal.swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    width: auto;
+}
+
+/* Event Card Styles */
+.event-modal .event-card {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    max-width: 500px;
+    margin: auto;
+    min-height: 300px;
+}
+
+/* Styles for the Top Image in the Event Card */
+.event-modal .event-card .card-img-top {
+    width: 100%;
+    object-fit: contain;
+    height: auto;
+}
+
+/* Styles for the Body of the Event Card */
+.event-modal .event-card .card-body {
+    background-color: rgb(255, 255, 255);
+    height: 375px;
+    width: 100%;
+    text-align: center;
+    padding: 0 0 20px 0;
+    overflow-y: auto;
+}
+
+.event-modal .swiper-button-next, .swiper-button-prev {
+    color: white;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.event-modal .swiper-button-prev {
+    color: white;
+}
+.swiper-button-next, .swiper-button-prev {
+    color: white;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+
+.event-modal .event-card .card-title,
+.event-modal .event-card .card-text {
+    color: rgb(255, 255, 255);
+}
+
+.event-modal .swiper-slide-active a {
+    pointer-events: auto !important;
+}
+
+.event-modal .swiper-fade .swiper-slide a{
+    pointer-events: auto !important;
+    transition-property: opacity;
+}
+
+/* Style for each performer's name */
+.performer-name {
+    text-align: center;
+    font-size: 25px;
+    margin: 5px 0;
+}
+
+.performers {
+    color: white;
+}
+
+/* Style for the Buy Tickets button */
+.btn.event-link {
+    display: block;
+    width: 100%;
+    background-color: black;
+    color: white;
+    border-radius: 0;
+    text-align: center;
+    padding: 10px 0;
+    margin-bottom: 10px;
+    border: none;
+    outline: none; 
+}
+
+.btn.event-link:hover, .btn.event-link:focus {
+    background-color: #333;
+    color: white;
+    outline: none; 
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 767px) {
+    .event-modal .swiper-container {
+        padding-top: 10px; 
+    }
+
+    .event-modal .event-card {
+        top: 10px; 
+        width: 85%; 
+        max-width: none; 
+        min-height: 80vh; 
+        margin: 0 auto; 
+    }
+
+    .event-modal-close {
+        position: fixed; 
+        top: 5px; 
+        left: 5px; 
+        width: 40px; 
+        height: 40px; 
+        line-height: 20px; 
+        font-size: 18px; 
+        text-align: center; 
+        background-color: rgba(0, 0, 0, 0.6); 
+        border-radius: 20px; 
+        z-index: 2100; 
+    }
+
+    .date-and-title-container {
+        height: 40px;
+    }
+
+    .date-box {
+        width: 60px; 
+        height: 40px; 
+    }
+
+    .date-box .day,
+    .date-box .date-full,
+    .date-box .time-full {
+        font-size: 9px; 
+    }
+
+    .date-box .date-full {
+        font-size: 11px; 
+    }
+
+    .more-info {
+        font-size: 11px; 
+    }
+
+    /* Combined styles for event post containers */
+    .event-container {
+        width: 100%;
+        padding: 0 10px;
+        gap: 10px;
+    }
+
+    .event-posts-container {
+        flex: 0 0 calc(50% - 5px);
+    }
+}
+
+/* Media Query for Tablet Devices */
+@media (min-width: 768px) and (max-width: 1024px) {
+    .event-modal .swiper-container {
+        padding-top: 15px; /* Adjusted for tablet */
+    }
+
+    .event-modal .event-card {
+        top: 75px; 
+        width: 70%; /* Adjusted width for tablet */
+        max-width: none; 
+        min-height: 70vh; /* Adjusted min-height for tablet */
+        margin: 0 auto; 
+    }
+
+    .event-modal-close {
+        position: fixed; 
+        top: 10px; 
+        left: 10px; 
+        width: 45px; /* Adjusted width for tablet */
+        height: 45px; /* Adjusted height for tablet */
+        line-height: 45px; /* Adjusted line height for tablet */
+        font-size: 28px; /* Adjusted font size for tablet */
+        text-align: center; 
+        background-color: rgba(0, 0, 0, 0.6); 
+        border-radius: 22.5px; /* Adjusted border-radius for tablet */
+        z-index: 2100; 
+    }
+
+    
+
+    .date-and-title-container {
+        height: 50px;
+    }
+
+    .date-box {
+        width: 70px; 
+        height: 50px; 
+    }
+
+    .date-box .day,
+    .date-box .date-full,
+    .date-box .time-full {
+        font-size: 12px; 
+    }
+
+    .date-box .date-full {
+        font-size: 14px; 
+    }
+
+    .more-info {
+        font-size: 14px; 
+    }
+
+    .event-container {
+        width: 100%;
+        padding: 0 15px;
+        gap: 15px;
+    }
+
+    .event-posts-container {
+        flex: 0 0 calc(33.3333% - 10px);
+    }
+}
+
 
 /* === FOOTER STYLES === */
 .site-footer {
@@ -217,363 +1503,4 @@ body.admin-bar .navbar {
 
 .footer-content a:hover {
     text-decoration: underline;
-}
-
-.beverages-container {
-    position: relative;
-}
-
-.beverages-container::before {
-    content: "";
-    display: block;
-    height: 60px;
-}
-
-.beverages-section {
-    background: linear-gradient(to right, #2c4603, black,#2c4603);
-    padding: 50px 0;
-    box-shadow: 0 2px 4px rgba(247, 246, 246, 0.5);
-    margin-top: 100px;
-}
-
-.beverages-title {
-    font-size: 2rem;
-    font-weight: bold;
-    text-align: center;
-}
-
-.beverage-container, .events-container, .event-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-}
-
-.beverage-post.card, .event-post.card {
-    flex: 0 0 calc(50% - 20px);
-    box-sizing: border-box;
-}
-
-
-
-.beverage-tag {
-    display: inline-block;
-    background-color: green;
-    color: white;
-    padding: 5px;
-    margin: 0 2px;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-
-
-
-
-
-/* Event post */
-.event-post {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Image container */
-.image-container {
-    width: 100%;
-}
-
-.image-container .card-img-top {
-    width: 100%;
-    display: block;
-}
-
-/* Date and title container */
-.date-and-title-container {
-    display: flex;
-    background-color: rgb(61, 61, 61);
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.date-box {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: black;
-    color: white;
-    width: 60px;
-    padding: 5px;
-    box-sizing: border-box;
-}
-
-.date-box .month,
-.date-box .day {
-    font-size: 12px;
-}
-
-.date-box .date {
-    font-size: 24px;
-}
-
-.title-and-performers {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-    margin-left: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-}
-
-.title-and-performers .card-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.title-and-performers .performers-line {
-    color: #fff; /* Adjust color as necessary */
-    font-size: 12px; /* Adjust font size as necessary */
-}
-
-/* More info button */
-
-.more-info-btn button {
-    background-color: black;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
-    position: absolute;
-    bottom: 10px;
-    right: 10px;
-    z-index: 1000;
-}
-
-
-/* Content container */
-.card-content {
-    display: none;
-    background-color: rgba(0, 0, 0, 0.8);
-    padding: 20px;
-    box-sizing: border-box;
-    transition: all 0.3s ease;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    padding-bottom: 60px; 
-}
-
-.active .card-content {
-    display: block;
-    z-index: 2;
-}
-
-/* General styles for events section and containers */
-.events-section {
-    background: linear-gradient(to right, #1e2415, #1e2415);
-    padding: 50px 0;
-    box-shadow: 0 2px 4px rgba(247, 246, 246, 0.5);
-    margin-top: 100px;
-}
-
-.event-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-}
-
-.event-posts-container {
-    flex: 0 0 calc(50% - 20px);
-    box-sizing: border-box;
-    /* max-height: 100vh; - remove this */
-    /* overflow-y: auto; - remove this */
-}
-
-/* Navbar styles */
-.navbar-style {
-    background-color: rgba(0, 0, 0, 0.9);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    width: 100%;
-    box-sizing: border-box;
-    margin: 0;
-    margin-bottom: 5px;
-    top: 0;
-    left: 0;
-    position: relative; /* Change from absolute to relative */
-    z-index: 2; /* Add z-index to stay on top */
-}
-
-.card-content .card-text {
-    margin-top: 20px !important; /* Adding space above the line */
-    margin-bottom: 20px !important; /* Adding space below the line */
-    text-align: center; /* Retaining existing styles */
-    max-width: 60%; /* Retaining existing styles */
-    margin: 0 auto; /* This might be conflicting with your margin-top and margin-bottom, consider removing it */
-}
-
-.navbar-image-container img {
-    height: 40px;
-    width: auto;
-}
-
-/* Performers styles */
-.performers {
-    margin-top: 5px;
-}
-
-.headline-performer {
-    text-align: center;
-    font-size: 1.5em;
-    margin-bottom: 20px;
-}
-
-.supporting-performers {
-    text-align: center;
-    font-size: 1em;
-}
-
-.card-content .card-text {
-    margin-bottom: 25px;
-}
-.card-text {
-    margin: 0 auto; /* This will center the text */
-    max-width: 60%; /* This sets a maximum width to prevent the text from stretching too far; adjust as necessary */
-    text-align: center; /* This aligns the text to the center within its container */
-}
-
-.iframe-container {
-    position: fixed;
-    top: 60px;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0, 0, 0, 0.5);
-    overflow: auto;
-    z-index: 1000;
-    padding-top: 60px; /* added padding to ensure content isn't stuck to the top */
-    box-sizing: border-box;
-}
-
-.iframe-close-btn {
-    position: absolute;
-    top: 20px; /* adjusted to work with the added padding in the iframe container */
-    right: 20px;
-    font-size: 24px;
-    background: #fff;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 50%;
-    z-index: 1001; /* kept above iframe content */
-    cursor: pointer; /* added to indicate clickability */
-}
-
-.event-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-}
-
-.buy-tickets-btn {
-    position: absolute;
-    bottom: 20px; /* Position it from the bottom */
-    left: 50%; /* Centering the button horizontally */
-    transform: translateX(-50%); /* Ensuring the button remains centered */
-    padding: 10px 20px;
-    background-color: rgb(22, 66, 20); /* Choose a color that fits your design */
-    color: #fff;
-    border: none;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.age-price {
-    text-align: center;
-    font-size: 0.9em; /* Adjust as necessary */
-    margin-top: 10px; /* Adjust as necessary */
-}
-
-.age-price .card-text {
-    display: inline; /* To display them on a single line */
-    margin: 0 10px; /* Space between age and price */
-}
-
-
-
-.main-info-content {
-    position: relative; /* Establishing a positioning context for children */
-    padding-bottom: 70px; /* Padding bottom to create space for the button */
-    height: 100%; /* Making it occupy the full height of its parent */
-    box-sizing: border-box; /* Including padding and border in element's total width and height */
-    background-color:rgba(0, 0, 0, 0.5);
-}
-
-
-
-
-
-
-.location-section {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    padding: 20px;
-}
-
-.location-container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    gap: 20px;
-}
-
-.location-map {
-    flex: 1;
-    min-width: 300px;
-}
-
-.location-map iframe {
-    width: 100%;
-    height: 100%;
-}
-
-.location-address,
-.location-hours {
-    flex: 0.5;
-    min-width: 150px;
-}
-
-@media (max-width: 768px) {
-    .location-container {
-        flex-direction: column;
-        align-items: center;
-    }
-}
-
-
-
-/* === MEDIA QUERIES FOR RESPONSIVENESS === */
-@media (max-width: 992px) {
-    .beverage-post.card, .event-post.card {
-        flex: 0 0 calc(100% - 20px);  /* Take up the full width minus the gap */
-    }
 }

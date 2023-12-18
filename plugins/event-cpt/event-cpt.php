@@ -72,7 +72,7 @@ function event_block_register() {
         plugins_url('blocks/event-block/block.js', __FILE__),
         array('wp-blocks', 'wp-element', 'wp-editor'),
         '1.0.0',
-        true // Loading the script in the footer can help prevent some conflicts or issues
+        true 
     );
 
     // Register block editor CSS
@@ -100,17 +100,22 @@ function event_block_register() {
 }
 add_action('init', 'event_block_register');
 
+// Register Custom Meta Fields for Event CPT
 function register_event_meta() {
     $meta_fields = array(
         'event_title' => 'string',
         'performers' => 'string',
         'event_description' => 'string',
         'event_type' => 'string',
-        'event_date_time' => 'string',
+        'event_date' => 'string', // Changed to store only the date
+        'event_time' => 'string', // New field for event time
         'event_price' => 'string',
         'event_age' => 'string',
         'event_image_url' => 'string',
-        'event_link' => 'string'
+        'event_image_url2' => 'string',
+        'event_link' => 'string',
+        'show_title' => 'boolean',
+        'featured_event' => 'boolean'
     );
 
     foreach ($meta_fields as $field => $type) {
@@ -126,3 +131,4 @@ function register_event_meta() {
 }
 add_action('init', 'register_event_meta');
 ?>
+

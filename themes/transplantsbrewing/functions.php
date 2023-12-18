@@ -3,6 +3,11 @@
 function transplantsbrewing_enqueue_styles() {
     // Enqueue Bootstrap 5 CSS
     wp_enqueue_style('bootstrap-css', 'https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css');
+  
+    wp_enqueue_style('fontawesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css');
+    
+
+    add_action('wp_enqueue_scripts', 'theme_enqueue_styles');
     
     // Enqueue your main style.css
     wp_enqueue_style('transplantsbrewing-main-style', get_stylesheet_uri());
@@ -69,15 +74,23 @@ function disable_gutenberg_fullscreen_mode() {
 add_action('enqueue_block_editor_assets', 'disable_gutenberg_fullscreen_mode');
 
 function enqueue_custom_scripts() {
-    wp_enqueue_script('jquery'); // Enqueue jQuery that comes with WordPress
+    // Enqueue jQuery that comes with WordPress
+    wp_enqueue_script('jquery');
 
-    // Enqueue your navbar script
+    // Enqueue jQuery UI
+    wp_enqueue_script('jquery-ui-core');
+    wp_enqueue_script('jquery-ui-draggable');
+    wp_enqueue_script('jquery-ui-droppable');
+
+    // Enqueue your other scripts
     wp_enqueue_script('navbar-script', get_template_directory_uri() . '/js/navbar.js', array('jquery'), null, true);
-    
-    // Enqueue your info.js script
     wp_enqueue_script('info-js', get_template_directory_uri() . '/js/info.js', array('jquery'), null, true);
-    // Enqueue your event-scripts.js script
     wp_enqueue_script('event-scripts', get_template_directory_uri() . '/js/event-scripts.js', array('jquery'), null, true);
+    wp_enqueue_script('shop-iframe-handler', get_template_directory_uri() . '/js/shop-iframe-handler.js', array('jquery'), null, true);
+
+    // Enqueue the Featured Event Notification script
+    wp_enqueue_script('events-filter', get_template_directory_uri() . '/js/events-filter.js', array(), '1.0.0', true);
+    wp_enqueue_script('featured-event-notification', get_template_directory_uri() . '/js/featured-event-notification.js', array('jquery'), null, true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_custom_scripts');
 
@@ -87,10 +100,16 @@ function enqueue_swiper_scripts() {
     wp_enqueue_script('swiper-js', 'https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js', array(), null, true);
 
     // Enqueue your Swiper initialization script
-    wp_enqueue_script('swiper-init', get_template_directory_uri() . '/js/swiper-init.js', array('swiper-js'), null, true);
+    wp_enqueue_script('swiper-init', get_template_directory_uri() . '/js/swiper-init.js', array('swiper-js'), null, true);   
 }
 add_action('wp_enqueue_scripts', 'enqueue_swiper_scripts');
 
-show_admin_bar(false);
+function add_async_attribute_to_swiper_init($tag, $handle) {
+    if ('swiper-init' === $handle) {
+        return str_replace(' src', ' async="async" src', $tag);
+    }
+    return $tag;
+}
+add_filter('script_loader_tag', 'add_async_attribute_to_swiper_init', 10, 2);
 
-?>
+show_admin_bar(false);

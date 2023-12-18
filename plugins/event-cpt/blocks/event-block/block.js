@@ -10,7 +10,7 @@ const {
     TextControl: EventTextControl,
     Button: EventButton,
     Placeholder: EventPlaceholder,
-    DateTimePicker: EventDateTimePicker
+    ToggleControl: EventToggleControl
 } = wp.components;
 
 const eventEl = wp.element.createElement;
@@ -28,7 +28,7 @@ eventRegisterBlockType('event-cpt/event-block', {
         },
         performers: {
             type: 'string',
-            default: '[]',  // Use a JSON representation of an empty array
+            default: '[]',
             source: 'meta',
             meta: 'performers'
         },
@@ -44,11 +44,17 @@ eventRegisterBlockType('event-cpt/event-block', {
             source: 'meta',
             meta: 'event_image_url'
         },
-        event_date_time: {
+        event_date: {
             type: 'string',
             default: '',
             source: 'meta',
-            meta: 'event_date_time'
+            meta: 'event_date'
+        },
+        event_time: {
+            type: 'string',
+            default: '',
+            source: 'meta',
+            meta: 'event_time'
         },
         event_price: {
             type: 'string',
@@ -67,16 +73,28 @@ eventRegisterBlockType('event-cpt/event-block', {
             default: '',
             source: 'meta',
             meta: 'event_age'
+        },
+        event_type: {
+            type: 'string',
+            default: '',
+            source: 'meta',
+            meta: 'event_type'
+        },
+        featured_event: {
+            type: 'boolean',
+            default: false,
+            source: 'meta',
+            meta: 'featured_event'
         }
     },
     edit: function(props) {
-        const { 
-            attributes: { 
-                event_title, event_description, event_image_url, 
-                event_date_time, event_price, event_link, event_age,
-                performers
-            }, 
-            setAttributes 
+        const {
+            attributes: {
+                event_title, performers, event_description, event_image_url,
+                event_date, event_time, event_price, event_link, event_age, 
+                event_type, featured_event
+            },
+            setAttributes
         } = props;
 
         const performersArray = JSON.parse(performers || '[]');
@@ -111,87 +129,101 @@ eventRegisterBlockType('event-cpt/event-block', {
             setAttributes({ performers: JSON.stringify(updatedPerformers) });
         }
 
+        function onEventTypeChange(event) {
+            setAttributes({ event_type: event.target.value });
+        }
+
         return eventEl('div', { className: 'wp-block-event-cpt-event-block event-editor-wrapper' },
             [
-                eventEl('div', { className: 'transplants-events-container' }, 
+                eventEl('div', { className: 'transplants-events-container' },
                     eventEl('h1', { className: 'transplants-events-header' }, 'Transplants Events')
                 ),
-                eventEl('div', { className: 'content-container' }, 
+                eventEl('div', { className: 'content-container' },
                     [
                         eventEl('p', {}, 'Add a new event'),
                         eventEl(EventTextControl, {
                             label: "Event Title",
                             value: event_title,
-                            onChange: function(newTitle) {
-                                setAttributes({ event_title: newTitle });
-                            }
+                            onChange: newTitle => setAttributes({ event_title: newTitle })
                         }),
                         eventEl(EventTextControl, {
                             label: "Event Description",
                             value: event_description,
-                            onChange: function(newDescription) {
-                                setAttributes({ event_description: newDescription });
-                            }
+                            onChange: newDescription => setAttributes({ event_description: newDescription })
                         }),
-                        eventEl(EventDateTimePicker, {
-                            currentDate: event_date_time,
-                            onChange: (newDate) => setAttributes({ event_date_time: newDate })
+                        eventEl(EventTextControl, {
+                            label: "Event Date",
+                            value: event_date,
+                            onChange: newDate => setAttributes({ event_date: newDate }),
+                            type: 'date'
+                        }),
+                        eventEl(EventTextControl, {
+                            label: "Event Time",
+                            value: event_time,
+                            onChange: newTime => setAttributes({ event_time: newTime })
                         }),
                         eventEl(EventTextControl, {
                             label: "Price",
                             value: event_price,
-                            onChange: (newPrice) => setAttributes({ event_price: newPrice })
+                            onChange: newPrice => setAttributes({ event_price: newPrice })
                         }),
                         eventEl(EventTextControl, {
                             label: "Link",
                             value: event_link,
-                            onChange: (newLink) => setAttributes({ event_link: newLink })
+                            onChange: newLink => setAttributes({ event_link: newLink })
                         }),
                         eventEl(EventTextControl, {
                             label: "Age",
                             value: event_age,
-                            onChange: (newAge) => setAttributes({ event_age: newAge })
+                            onChange: newAge => setAttributes({ event_age: newAge })
+                        }),
+                        eventEl('select', {
+                            onChange: onEventTypeChange,
+                            value: event_type,
+                            style: { width: '100%', height: '30px', marginBottom: '20px' }
+                        },
+                            eventEl('option', { value: '' }, 'Select Event Type'),
+                            eventEl('option', { value: 'concert' }, 'CONCERT'),
+                            eventEl('option', { value: 'dj' }, 'DJ'),
+                            eventEl('option', { value: 'comedy' }, 'COMEDY'),
+                            eventEl('option', { value: 'burlesque' }, 'BURLESQUE'),
+                            eventEl('option', { value: 'wrestling' }, 'WRESTLING')
+                        ),
+                        eventEl(EventToggleControl, {
+                            label: "Featured Event",
+                            checked: featured_event,
+                            onChange: newValue => setAttributes({ featured_event: newValue })
                         }),
                         eventEl('div', { className: 'performers-section' },
-                            [
-                                eventEl('h2', {}, 'Performers'),
-                                performersArray && performersArray.length > 0 ? 
-                                    performersArray.map(performer => 
-                                        eventEl('div', { key: performer.id, className: 'performer-entry' },
-                                            [
-                                                eventEl(EventTextControl, {
-                                                    label: `Performer ${performer.hierarchy}`,
-                                                    value: performer.name,
-                                                    onChange: (newName) => updatePerformerName(performer.id, newName)
-                                                }),
-                                                eventEl(EventButton, {
-                                                    isDestructive: true,
-                                                    onClick: () => removePerformer(performer.id)
-                                                }, 'Remove')
-                                            ]
-                                        )
-                                    ) : null,
-                                eventEl(EventButton, { isSecondary: true, onClick: addPerformer }, '+ Add Performer')
-                            ]
+                            performersArray.map(performer =>
+                                eventEl('div', { key: performer.id, className: 'performer-entry' },
+                                    [
+                                        eventEl(EventTextControl, {
+                                            label: `Performer ${performer.hierarchy}`,
+                                            value: performer.name,
+                                            onChange: newName => updatePerformerName(performer.id, newName)
+                                        }),
+                                        eventEl(EventButton, {
+                                            isDestructive: true,
+                                            onClick: () => removePerformer(performer.id)
+                                        }, 'Remove')
+                                    ]
+                                )
+                            ),
+                            eventEl(EventButton, { isSecondary: true, onClick: addPerformer }, '+ Add Performer')
                         ),
                         eventEl('div', { className: 'image-section' },
-                            event_image_url ? 
+                            event_image_url ?
                                 eventEl('img', { src: event_image_url, alt: 'Event Image', className: 'uploaded-event-image' }) :
                                 eventEl(EventPlaceholder, {
                                     icon: 'format-image',
                                     label: 'Upload Event Image'
-                                }, 
-                                    eventEl(EventMediaUploadCheck, {}, 
+                                },
+                                    eventEl(EventMediaUploadCheck, {},
                                         eventEl(EventMediaUpload, {
                                             onSelect: onSelectImage,
                                             allowedTypes: ['image'],
-                                            value: event_image_url,
-                                            render: function({ open }) {
-                                                return eventEl(EventButton, {
-                                                    onClick: open,
-                                                    isPrimary: true
-                                                }, 'Upload Image');
-                                            }
+                                            render: ({ open }) => eventEl(EventButton, { onClick: open, isPrimary: true }, 'Upload Image')
                                         })
                                     )
                                 )
