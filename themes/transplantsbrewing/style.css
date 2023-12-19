@@ -20,15 +20,24 @@ body {
     margin: 0;
     padding: 0;
 }
+
+body * {
+    cursor: pointer;
+}
+
 html {
     margin: 5;
     padding: 5;
 }
 
 .no-scroll {
-    overflow: hidden;
-    height: 100%; /* Prevents scrolling */
+    overflow-y: scroll; /* Keep the scrollbar */
+    position: fixed; /* Prevent scrolling */
+    width: 100%;
+    top: 0; /* Lock the content in place */
 }
+
+
 
 /* === NAVBAR STYLES === */
 .custom-navbar {
@@ -80,7 +89,7 @@ body.admin-bar .navbar {
 
 .navbar-toggler-icon::before,
 .navbar-toggler-icon::after {
-    background-color: white !important; /* Change the background color of the lines */
+    background-color: white !important;
 }
 /* Mobile and Tablet View */
 @media screen and (max-width: 991px) {
@@ -268,6 +277,45 @@ body.admin-bar .navbar {
         object-fit: cover;
         object-position: center;
     }
+
+    /* === RESPONSIVE STYLES FOR TABLETS === */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .fixed-carousel {
+        height: 100vh;
+    }
+
+    .fixed-carousel::after {
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    .carousel .carousel-inner .carousel-item img {
+        width: auto;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .fixed-carousel .swiper-container {
+        height: 100vh;
+    }
+
+    .fixed-carousel .swiper-slide img {
+        width: auto;
+        height: 100vh;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    .logo-container {
+        top: 40%;
+        width: 60vw;
+    }
+
+    .carousel-logo {
+        width: 40vw;
+    }
+}
+
 
     /* === RESPONSIVE STYLES FOR MOBILE === */
 @media screen and (max-width: 768px) { 
@@ -538,7 +586,7 @@ body.admin-bar .navbar {
 
     .beverages-container .beverage-modal .beverage-card {
         margin: 0 auto;
-        width: 60%; /* Adjusted for larger tablet screen */
+        width: 60%;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -845,9 +893,9 @@ iframe#shopIframe {
 }
 @media screen and (max-width: 768px) {
     #openShopIframe {
-        padding: 10px 40px; /* Adjust the padding for smaller screens */
-        font-size: 24px;   /* Adjust the font size for smaller screens */
-        min-width: 200px;  /* Adjust the minimum width for smaller screens */
+        padding: 10px 40px;
+        font-size: 24px;
+        min-width: 200px;
     }
 }
 
@@ -954,6 +1002,7 @@ iframe#shopIframe {
     font-size: 24px; 
 }
 
+/* === FEATURED SECTION RESPONSIVE STYLES FOR MOBILE === */
 @media (max-width: 767px) {
     .featured-event-notification {
         width: 100%;
@@ -968,6 +1017,24 @@ iframe#shopIframe {
     }
 }
 
+/* === FEATURED SECTION RESPONSIVE STYLES FOR TABLETS === */
+@media screen and (min-width: 768px) and (max-width: 1024px) {
+    .featured-event-notification {
+        width: 100%;
+    }
+
+    .featured-event-notification .horizontal-event-card {
+        width: calc(33% - 10px);
+        margin: 2px;
+    }
+
+    .featured-event-notification .horizontal-event-card:nth-child(n+4) {
+        display: none;
+    }
+    .date-box .time-full {
+        display: none;
+    }
+}
 
 /* EVENTS */
 .events-section {
@@ -995,7 +1062,19 @@ iframe#shopIframe {
     width: 100%; 
     margin: 0 auto; 
     text-align: center; 
+    margin-bottom: 5px;
+}
+
+#no-events-message {
+    text-align: center;
+    margin-top: 10px;
     margin-bottom: 20px;
+    min-height: 20px; 
+    opacity: 0; 
+    visibility: hidden;
+    transition: opacity 0.3s, visibility 0.3s;
+    color: #fff;
+    font-size: 16px;
 }
 
 /* Styles for the dropdown select */
@@ -1152,6 +1231,40 @@ iframe#shopIframe {
     box-sizing: border-box;
     z-index: -1;
 }
+.featured-event-post {
+    position: relative;
+    overflow: hidden;
+}
+
+.featured-event-post .card-body {
+    position: relative;
+    z-index: 1;
+    overflow: hidden !important;
+}
+
+.featured-event-post .card-bg-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+    display: block;
+    transform: scale(1.001);
+}
+
+.featured-event-post .card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+
 
 /* Styles for the card body within an event post */
 .event-post .card-body {
@@ -1320,14 +1433,21 @@ iframe#shopIframe {
 /* Style for each performer's name */
 .performer-name {
     text-align: center;
-    font-size: 25px;
-    margin: 5px 0;
+    font-size: 20px;
+    margin: 0 0 0 0;
 }
 
 .performers {
     color: white;
 }
 
+#description {
+    margin: 10px 25px 10px 25px;
+}
+
+#event-title {
+    font-size: 25px;
+}
 /* Style for the Buy Tickets button */
 .btn.event-link {
     display: block;
@@ -1335,16 +1455,17 @@ iframe#shopIframe {
     background-color: black;
     color: white;
     border-radius: 0;
+    font-size: 20px;
     text-align: center;
-    padding: 10px 0;
+    padding: 15px 0;
     margin-bottom: 10px;
     border: none;
     outline: none; 
 }
 
 .btn.event-link:hover, .btn.event-link:focus {
-    background-color: #333;
-    color: white;
+    background-color: rgb(255, 255, 255);
+    color: rgb(0, 0, 0);
     outline: none; 
 }
 
@@ -1414,14 +1535,14 @@ iframe#shopIframe {
 /* Media Query for Tablet Devices */
 @media (min-width: 768px) and (max-width: 1024px) {
     .event-modal .swiper-container {
-        padding-top: 15px; /* Adjusted for tablet */
+        padding-top: 15px;
     }
 
     .event-modal .event-card {
         top: 75px; 
-        width: 70%; /* Adjusted width for tablet */
+        width: 70%;
         max-width: none; 
-        min-height: 70vh; /* Adjusted min-height for tablet */
+        min-height: 70vh;
         margin: 0 auto; 
     }
 
@@ -1429,13 +1550,13 @@ iframe#shopIframe {
         position: fixed; 
         top: 10px; 
         left: 10px; 
-        width: 45px; /* Adjusted width for tablet */
-        height: 45px; /* Adjusted height for tablet */
-        line-height: 45px; /* Adjusted line height for tablet */
-        font-size: 28px; /* Adjusted font size for tablet */
+        width: 45px; 
+        height: 45px;
+        line-height: 45px;
+        font-size: 28px;
         text-align: center; 
         background-color: rgba(0, 0, 0, 0.6); 
-        border-radius: 22.5px; /* Adjusted border-radius for tablet */
+        border-radius: 22.5px;
         z-index: 2100; 
     }
 
@@ -1458,6 +1579,10 @@ iframe#shopIframe {
 
     .date-box .date-full {
         font-size: 14px; 
+    }
+
+    .date-box .time {
+        display: none;
     }
 
     .more-info {

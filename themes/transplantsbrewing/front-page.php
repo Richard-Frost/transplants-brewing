@@ -132,6 +132,7 @@
                             $day_of_week = $date_object->format('D'); // Abbreviated day of the week
                             $formatted_date = $date_object->format('M j'); // Abbreviated month and day
                             $event_image_url = get_post_meta($event_id, 'event_image_url', true);
+                            $event_title = get_post_meta($event_id, 'event_title', true);
                         
                             $performers = json_decode(get_post_meta($event_id, 'performers', true), true);
                             $performers_data = array();
@@ -149,6 +150,7 @@
                                 'day_of_week' => $day_of_week,
                                 'time' => $event_time,
                                 'type' => $event_type,
+                                'title' => $event_title,
                                 'featured' => $featured_event,
                                 'performers_data' => $performers_data,
                                 'event_image_url' => $event_image_url, 
@@ -174,15 +176,17 @@
                                     break;
                             }
                         
-                            // Add to featured_events if featured
+                           
                             if ($featured_event) {
                                 $featured_events[] = $current_event;
                             }
                             ?>
-                            <div class="event-posts-container" role="listitem" data-event-type="<?php echo esc_attr(strtolower($event_type)); ?>" data-featured-image="<?php echo esc_url($event_image_url); ?>">
+                            <div class="event-posts-container" id="all-events" role="listitem" data-event-type="<?php echo esc_attr(strtolower($event_type)); ?>" data-featured-image="<?php echo esc_url($event_image_url); ?>">
+                                
                                 <div class="event-post" aria-labelledby="event-title-<?php echo $event_id; ?>" 
                                      data-performers='<?php echo json_encode($performers_data); ?>'
-                                     data-event-id="<?php echo esc_attr($event_id); ?>" 
+                                     data-event-id="<?php echo esc_attr($event_id); ?>"
+                                     data-title="<?php echo esc_attr($event_title); ?>"
                                      data-event-link="<?php echo esc_url($event_link); ?>"
                                      data-description="<?php echo esc_attr(get_post_meta($event_id, 'event_description', true)); ?>"
                                      data-price="<?php echo esc_attr(get_post_meta($event_id, 'event_price', true)); ?>"
@@ -253,7 +257,7 @@
                         $formatted_time = esc_html($event['time']);
                         ?>
                         <div class="horizontal-event-card" role="article">
-                            <div class="event-post" 
+                            <div class="featured-event-post" 
                                  aria-labelledby="event-title-<?php echo $event['id']; ?>" 
                                  data-performers='<?php echo json_encode($event['performers_data']); ?>'
                                  data-event-link="<?php echo esc_url($event['link']); ?>"

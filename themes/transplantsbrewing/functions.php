@@ -113,3 +113,4 @@ function add_async_attribute_to_swiper_init($tag, $handle) {
 add_filter('script_loader_tag', 'add_async_attribute_to_swiper_init', 10, 2);
 
 show_admin_bar(false);
+

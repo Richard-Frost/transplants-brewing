@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     let eventSlides = [];
-    let originalOrderEvents = Array.from(document.querySelectorAll('.event-post'));
+    let originalOrderEvents = Array.from(document.querySelectorAll('#all-events .event-post'));
 
     document.querySelectorAll('.event-post').forEach(function(eventElem) {
         const imageElem = eventElem.querySelector('.card-img-top');
@@ -92,24 +92,27 @@ document.addEventListener('DOMContentLoaded', function() {
         const eventLink = eventElem.dataset.eventLink || '#';
 
         const performersContent = performers.map(performer => `<div class="performer-name">${performer.name}</div>`).join('');
-
+        const eventTitle = eventElem.dataset.title || ''; // Fetching the event title from the data attribute
+        const titleContent = eventTitle ? `<h1 id="event-title">${eventTitle}</h1>` : ''; // Creating title content, if available
+        
         const slideContent = `
-            <div class="swiper-slide">
-                <div class="event-post card event-card">
-                    <img class="card-img-top" src="${imageSrc}" alt="Event image" loading="lazy">
-                    <div class="card-body">
-                    <div class="bg-card-overlay"></div>
-                        <img class="modal-bg-image" src="${imageSrc}" alt="Event image" loading="lazy">
-                        <div class="card-overlay"></div>
-                        <a href="${eventLink}" target="_blank" class="btn btn-primary event-link swiper-no-swiping" data-iframe-src="${eventLink}">Buy Tickets</a>
-                        <div class="performers">${performersContent}</div>
-                        <p class="card-text">${eventElem.dataset.description || 'No description available'}</p>
-                        <p class="card-text">Price: ${eventElem.dataset.price || 'Free'}</p>
-                        <p class="card-text">Age: ${eventElem.dataset.age || 'All Ages'}</p>
-                    </div>
+        <div class="swiper-slide">
+            <div class="event-post card event-card">
+                <img class="card-img-top" src="${imageSrc}" alt="Event image" loading="lazy">
+                <div class="card-body">
+                <div class="bg-card-overlay"></div>
+                    <img class="modal-bg-image" src="${imageSrc}" alt="Event image" loading="lazy">
+                    <div class="card-overlay"></div>
+                    <a href="${eventLink}" target="_blank" class="btn btn-primary event-link swiper-no-swiping" data-iframe-src="${eventLink}">BUY TICKETS</a>
+                    ${titleContent} 
+                    <div class="performers">${performersContent}</div>
+                    <p class="card-text" id="description">${eventElem.dataset.description || 'No description available'}</p>
+                    <p class="card-text">Price: ${eventElem.dataset.price || 'Free'}</p>
+                    <p class="card-text">Age: ${eventElem.dataset.age || 'All Ages'}</p>
                 </div>
             </div>
-        `;
+        </div>
+    `;
         eventSlides.push(slideContent);
     });
 
@@ -209,24 +212,25 @@ document.addEventListener('DOMContentLoaded', function() {
             const iframeSrc = button.dataset.iframeSrc;
             openInIframe(iframeSrc);
         });
+       
+        const featuredEventInfoButtons = document.querySelectorAll('.featured-event-notification .more-info');
+        featuredEventInfoButtons.forEach(button => {
+            button.addEventListener('click', function(event) {
+                const eventPost = event.target.closest('.event-post, .featured-event-post');
+                if (eventPost) {
+                    const eventId = eventPost.dataset.eventId;
+                    const correspondingIndex = originalOrderEvents.findIndex(el => el.dataset.eventId === eventId);
+                    if (correspondingIndex !== -1) {
+                        eventModalSwiper.slideTo(correspondingIndex);
+                        eventModal.style.display = 'block';
+                        toggleBodyScroll(true);
+                    }
+                }
+            });
+        });
     });
 });
 
+
     
-
-   // Delegate event listener for the 'Buy Tickets' buttons within the swiper-wrapper
-    //swiperWrapper.addEventListener('click', function (e) {
-      //if (e.target && e.target.classList.contains('event-link')) {
-        //event.stopPropagation();
-        //console.log('Buy Tickets clicked'); // Log the click event
-    
-        // If you want to open the event link in an iframe:
-        // const iframeSrc = e.target.dataset.iframeSrc;
-        // iframeContainer.innerHTML = `<iframe src="${iframeSrc}" frameborder="0" style="width:100%; height:100vh;"></iframe>`;
-        // iframeContainer.style.display = 'block';
-      //}
-    //});
-      // Get all 'Buy Tickets' buttons within the swiper-wrapper
-
-
 

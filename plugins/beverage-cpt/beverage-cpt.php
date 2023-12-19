@@ -41,7 +41,7 @@ function register_beverage_cpt() {
         'label'                 => __( 'Beverage', 'text_domain' ),
         'description'           => __( 'Beverage Custom Post Type', 'text_domain' ),
         'labels'                => $labels,
-        'supports'              => array( 'editor', 'thumbnail', 'custom-fields' ),
+        'supports'              => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
         'taxonomies'            => array( 'category', 'post_tag' ),
         'hierarchical'          => false,
         'public'                => true,
@@ -256,8 +256,7 @@ function beverage_inventory_callback_2() {
             $unavailable_beverages[] = ['id' => $beverage_id, 'image' => $beverage_image_url];
         }
     endwhile;
-
-    // Display the form with draggable beverages
+    
     ?>
     <style>
     .on-tap-2-container {
