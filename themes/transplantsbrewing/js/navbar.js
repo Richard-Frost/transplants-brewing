@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-    // Function to handle smooth scroll and update the navbar position
+    // smooth scroll
     function handleScroll(targetSelector, offset) {
         var target = $(targetSelector);
         if (target.length) {
@@ -11,14 +11,14 @@ jQuery(document).ready(function($) {
         }
     }
 
-    // Function to hide the outside container
+    // hide the outside container
     function hideOutsideContainer() {
         $('.outside-container').animate({
             bottom: '-100%'
         }, 1000);
     }
 
-    // Function to collapse the navbar in mobile view
+    // collapse the navbar in mobile view
     function collapseNavbar() {
         const navbarToggler = $('.navbar-toggler');
         const isNavbarCollapsed = !navbarToggler.hasClass('collapsed');
@@ -76,7 +76,7 @@ jQuery(document).ready(function($) {
     // Initial position update when the page loads
     updateNavbarPosition();
 
-    // Add this code to ensure the page starts at the top on refresh
+    // ensure the page starts at the top on refresh
     $(window).on('beforeunload', function() {
         $(window).scrollTop(0);
     });

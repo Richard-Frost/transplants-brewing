@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
     var headerSwiper = new Swiper('.fixed-carousel .swiper-container', {
         autoplay: {
-            delay: 50, // image stays visible for 500ms
+            delay: 50,
             disableOnInteraction: false,
         },
         loop: true,
@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
             crossFade: true
         },
         effect: 'fade',
-        speed: 5000  // 4 seconds transition
+        speed: 5000
     });
 
     // Function to toggle body scroll
@@ -58,14 +58,14 @@ document.addEventListener('DOMContentLoaded', function() {
         frame.addEventListener('click', function() {
             beverageModalSwiper.slideTo(index);
             document.querySelector('.beverage-modal').style.display = 'block';
-            toggleBodyScroll(true); // Disable scrolling
+            toggleBodyScroll(true);
         });
     });
 
     document.querySelector('.beverage-modal-close').addEventListener('click', function(e) {
         beverageModalSwiper.slideTo(0, 0);
         document.querySelector('.beverage-modal').style.display = 'none';
-        toggleBodyScroll(false); // Enable scrolling
+        toggleBodyScroll(false);
     });
 
     const eventModal = document.querySelector('.event-modal');
@@ -92,8 +92,8 @@ document.addEventListener('DOMContentLoaded', function() {
         const eventLink = eventElem.dataset.eventLink || '#';
 
         const performersContent = performers.map(performer => `<div class="performer-name">${performer.name}</div>`).join('');
-        const eventTitle = eventElem.dataset.title || ''; // Fetching the event title from the data attribute
-        const titleContent = eventTitle ? `<h1 id="event-title">${eventTitle}</h1>` : ''; // Creating title content, if available
+        const eventTitle = eventElem.dataset.title || ''; 
+        const titleContent = eventTitle ? `<h1 id="event-title">${eventTitle}</h1>` : '';
         
         const slideContent = `
         <div class="swiper-slide">
@@ -150,7 +150,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 console.log("Event card clicked, going to slide index:", correspondingIndex);
                 eventModalSwiper.slideTo(correspondingIndex);
                 eventModal.style.display = 'block';
-                toggleBodyScroll(true); // Disable scrolling
+                toggleBodyScroll(true);
             } else {
                 console.error('Matching event not found in original order');
             }
